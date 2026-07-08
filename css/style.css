@@ -172,6 +172,16 @@ h1, h2, h3, .logo {
     color: white;
 }
 
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1001;
+}
+
 /* --- Showroom / Hero --- */
 #showroom {
     position: relative;
@@ -479,7 +489,31 @@ footer p {
 
 /* --- Mobile Responsive --- */
 @media (max-width: 768px) {
-    .nav-links { display: none; }
+    .nav-toggle {
+        display: block;
+    }
+    
+    .nav-links {
+        position: absolute;
+        top: var(--nav-height);
+        left: 0;
+        width: 100%;
+        background: rgba(11, 13, 16, 0.98);
+        flex-direction: column;
+        gap: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+    
+    .nav-links.active {
+        max-height: 300px;
+    }
+    
+    .nav-links a {
+        padding: 16px 24px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
     
     .hero-text {
         left: 5%;

@@ -13,7 +13,7 @@ export function initScene() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ReinhardToneMapping;
-    renderer.toneMappingExposure = 2;
+    renderer.toneMappingExposure = 1.5;
 
     const scene = new THREE.Scene();
     scene.fog = new THREE.Fog('#0b0d10', 10, 50);

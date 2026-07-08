@@ -1,6 +1,8 @@
+import * as THREE from 'three';
 import { initScene } from './scene.js';
 import { loadCarModel } from './carModel.js';
 import { initScrollAnimations } from './scrollAnimations.js';
+import { initMobileNav } from './mobile-nav.js';
 
 // Shared namespace
 window.CD3D = window.CD3D || {};
@@ -12,10 +14,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 2. Load Car Model
     await loadCarModel(scene);
 
-    // 3. Initialize Scroll Animations (GSAP)
+    // 3. Initialize Mobile Navigation
+    initMobileNav();
+
+    // 4. Initialize Scroll Animations (GSAP)
     initScrollAnimations();
 
-    // 4. Animation Loop
+    // 5. Animation Loop
     const clock = new THREE.Clock();
 
     function animate() {
