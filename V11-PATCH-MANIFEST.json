@@ -1,0 +1,26 @@
+{
+  "name": "ENES Properties V11 Final Release",
+  "release": "V11",
+  "baseline": "Verified V9.3 source + verified V10 Owner CMS + V10 Cloudflare import-boundary correction",
+  "database_migration": false,
+  "database_seed": false,
+  "dependency_changes": false,
+  "cloudflare_deployment": false,
+  "dns_changes": false,
+  "payments_enabled": false,
+  "scope": [
+    "Search-first mobile homepage and property-intent access",
+    "Persistent mobile navigation with Owner-controlled labels",
+    "Authenticated saved-listings and private messaging pages",
+    "Participant-scoped conversation rendering and closed-thread read-only mode",
+    "Accessible mobile filter drawer with focus management",
+    "Responsive listing cards and save controls",
+    "Additional editable homepage microcopy",
+    "Consolidated V11 source, Prisma, TypeScript and Cloudflare release verification"
+  ],
+  "verification": {
+    "v11_source_checks": "33/33 passed in the patch workspace",
+    "v10_source_checks": "40/40 passed in the patch workspace",
+    "full_prisma_typescript_and_cloudflare_build": "Must be run in the user's installed project environment"
+  }
+}

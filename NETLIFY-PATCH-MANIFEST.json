@@ -1,0 +1,14 @@
+{
+  "name": "ENES Netlify Hosting Preparation",
+  "scope": "Apply only to /home/oluwatodimu/enesproperties-netlify",
+  "changes": [
+    "Replace Cloudflare Hyperdrive runtime lookup with a bounded, warm-instance Prisma PostgreSQL pool using DATABASE_URL",
+    "Add minimal Netlify Next.js build configuration with Node.js 22 and adapter-managed publish output",
+    "Add Netlify configuration verifier and npm script",
+    "Retain all existing application routes, schema and migration files"
+  ],
+  "database_migration": false,
+  "cloudflare_worker_change": false,
+  "dependency_change": false,
+  "production_deployment": false
+}

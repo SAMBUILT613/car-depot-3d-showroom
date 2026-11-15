@@ -1,0 +1,20 @@
+{
+  "release": "ENES V10",
+  "patch": "Cloudflare client/server boundary correction",
+  "changes": [
+    "Mark database-backed site-content reader as server-only",
+    "Separate browser-safe CMS TypeScript types",
+    "Split three client forms from server route wrappers",
+    "Add regression assertions to V10 source verification",
+    "Keep v10:verify registered with Bash"
+  ],
+  "databaseMigration": false,
+  "databaseDataChanges": false,
+  "deployment": false,
+  "dnsChanges": false,
+  "verification": {
+    "sourceAssertions": "40/40 passed",
+    "typescriptSyntaxFiles": "10/10 passed",
+    "clientServerBoundaryScan": "passed"
+  }
+}

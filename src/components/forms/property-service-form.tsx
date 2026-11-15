@@ -1,0 +1,27 @@
+"use client";
+import { useState } from "react";
+import { useAuth } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { TurnstileWidget } from "@/components/shared/turnstile";
+import { NIGERIAN_STATES } from "@/lib/nigeria";
+import { ArrowLeft, Building2 } from "lucide-react";
+
+const serviceTypes = ["Property Management", "Facility Management", "Property Maintenance", "Letting & Leasing", "Real Estate Agency", "Inspection & Valuation", "Cleaning & Care", "Other"];
+export function PropertyServiceForm() {
+  const { isLoaded, isSignedIn } = useAuth();
+  const router = useRouter();
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  const [token, setToken] = useState("");
+  if (!isLoaded) return null;
+  return <div className="flex min-h-full flex-col bg-[#F4F0E8]"><main className="enes-container flex-1 py-8 sm:py-12"><Link href="/property-management" className="mb-6 inline-flex items-center gap-2 text-[11px] font-extrabold text-[#176B57]"><ArrowLeft className="h-3.5 w-3.5"/> Property services</Link><div className="mx-auto max-w-3xl rounded-[18px] border border-[#E5E0D6] bg-[#FFFDF8] p-5 sm:p-8"><div className="flex items-center gap-3"><span className="flex h-11 w-11 items-center justify-center rounded-[13px] bg-[#E3F0EA] text-[#176B57]"><Building2 className="h-5 w-5"/></span><div><p className="enes-kicker">Provider submission</p><h1 className="text-[23px] font-extrabold tracking-[-.04em] text-[#18211F]">List a property service</h1></div></div><p className="mt-3 text-[12px] leading-6 text-[#68736D]">Describe the work you provide and where you operate. Submissions are private until reviewed and published by ENES.</p>{!isSignedIn ? <div className="mt-6 rounded-[12px] bg-[#F4F0E8] p-5"><p className="text-[13px] font-extrabold text-[#18211F]">Sign in to submit a service</p><Link href="/sign-in" className="enes-button mt-4">Sign in to continue</Link></div> : <form className="mt-7 space-y-4" onSubmit={async (event)=>{event.preventDefault();setBusy(true);setError("");const form=new FormData(event.currentTarget);try{const response=await fetch("/api/property-management/services",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({title:form.get("title"),serviceType:form.get("serviceType"),description:form.get("description"),state:form.get("state"),city:form.get("city"),serviceAreas:String(form.get("serviceAreas")||"").split(",").map((x)=>x.trim()).filter(Boolean),pricingType:form.get("pricingType"),startingPrice:form.get("startingPrice"),turnstileToken:token})});const payload=await response.json();if(!response.ok)throw new Error(payload.error||"Service could not be submitted.");router.push("/dashboard?serviceSubmitted=1");}catch(cause){setError(cause instanceof Error?cause.message:"Service could not be submitted.");}finally{setBusy(false);}}}>
+  <div className="grid gap-4 sm:grid-cols-2"><label><span className="enes-label">Service title</span><input required name="title" maxLength={140} className="enes-field" placeholder="e.g. Residential property management"/></label><label><span className="enes-label">Service type</span><select required name="serviceType" className="enes-field"><option value="">Choose a service</option>{serviceTypes.map((item)=><option key={item}>{item}</option>)}</select></label></div>
+  <label className="block"><span className="enes-label">What does your service include?</span><textarea required name="description" minLength={40} maxLength={10000} rows={6} className="enes-field !h-auto" placeholder="Explain the services you provide, the property types you work with and how clients usually engage you."/></label>
+  <div className="grid gap-4 sm:grid-cols-2"><label><span className="enes-label">State</span><select required name="state" className="enes-field"><option value="">Select state</option>{NIGERIAN_STATES.map((item)=><option key={item}>{item}</option>)}</select></label><label><span className="enes-label">City or town</span><input required name="city" maxLength={100} className="enes-field"/></label></div>
+  <label className="block"><span className="enes-label">Other areas served (comma separated)</span><input name="serviceAreas" maxLength={600} className="enes-field" placeholder="e.g. Awka, Nnewi, Onitsha"/></label>
+  <div className="grid gap-4 sm:grid-cols-2"><label><span className="enes-label">Pricing approach</span><select name="pricingType" className="enes-field"><option value="">Not specified</option><option value="FIXED">Fixed price</option><option value="FROM">Starting from</option><option value="QUOTE">Quote after enquiry</option><option value="CONTRACT">Contract / retainer</option></select></label><label><span className="enes-label">Starting price (₦, optional)</span><input name="startingPrice" type="number" min="0" max="2000000000" step="1" className="enes-field" placeholder="Leave blank if not applicable"/></label></div>
+  <TurnstileWidget onVerify={setToken}/>{error&&<p role="alert" className="rounded-[9px] bg-[#F7E8E0] p-3 text-[12px] font-semibold text-[#A33333]">{error}</p>}<Button type="submit" disabled={busy} className="!bg-[#176B57]">{busy?"Submitting for review…":"Submit service for review"}</Button><p className="text-[10px] leading-5 text-[#7C867F]">Submission does not imply verification or endorsement. ENES reviews service information before it appears publicly.</p>
+ </form>}</div></main></div>;
+}

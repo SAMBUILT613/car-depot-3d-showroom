@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "description": "ENES V9 patch: media moderation race hardening and verification tooling",
+  "files": [
+    "src/app/api/admin/media/[id]/route.ts",
+    "scripts/v9/verify-source.mjs",
+    "scripts/v9/verify.sh",
+    "docs/ENES-V9-implementation-audit.md",
+    "package.json"
+  ],
+  "package_json_change": {
+    "scripts": {
+      "v9:verify": "sh scripts/v9/verify.sh"
+    }
+  },
+  "owner_content_untouched": [
+    "src/app/terms/page.tsx",
+    "src/app/privacy/page.tsx",
+    "src/app/safety/page.tsx"
+  ]
+}

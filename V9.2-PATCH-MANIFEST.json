@@ -1,0 +1,21 @@
+{
+  "name": "ENES Properties V9.2 Cloudflare Prisma lifecycle patch",
+  "baseline": "ENES-V9.1-source.zip supplied by user",
+  "files": [
+    "src/lib/db.ts",
+    "scripts/v9/verify-source.mjs",
+    "docs/ENES-V9-implementation-audit.md"
+  ],
+  "database_migrations": [],
+  "deployment_performed": false,
+  "verification": {
+    "source_checks": "26/26 passed in extracted source workspace",
+    "prisma_validate": "not run (dependencies not included in uploaded source archive)",
+    "typescript": "not run (dependencies not included in uploaded source archive)"
+  },
+  "notes": [
+    "Removes module-global PrismaClient and pg Pool reuse.",
+    "Uses React request/render cache and one-use pg connections for Hyperdrive.",
+    "Runtime behavior still requires an isolated Cloudflare Worker test."
+  ]
+}

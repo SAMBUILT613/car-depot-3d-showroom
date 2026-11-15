@@ -1,0 +1,20 @@
+ENES V12 — Dashboard deployment checklist
+
+[ ] Confirm selected Supabase project is tlpznfgxpibzysuxpcmb.
+[ ] Confirm it is the intended separate V12 project, not another project.
+[ ] Create Cloudflare Pages review project and obtain its exact pages.dev origin.
+[ ] Add Clerk development Pages origin in Clerk Dashboard allowed origins.
+[ ] Add DATABASE_URL (Neon pooled connection) in Supabase Edge Function Secrets.
+[ ] Add R2_PUBLIC_BUCKET_NAME.
+[ ] Add ENES_ALLOWED_ORIGINS with exact HTTPS Pages origin.
+[ ] Add CLERK_JWKS_URL.
+[ ] Add CLERK_JWT_ISSUER.
+[ ] Deploy dashboard-copy/health/index.ts via Dashboard editor; disable gateway Verify JWT.
+[ ] Test health GET and require HTTP 200/database connected.
+[ ] Deploy dashboard-copy/public-site-content/index.ts; disable gateway Verify JWT.
+[ ] Test GET; confirm draft is not in response.
+[ ] Deploy dashboard-copy/public-listings/index.ts; disable gateway Verify JWT.
+[ ] Test GET?limit=5; confirm only published records and approved public media.
+[ ] Deploy dashboard-copy/clerk-session-check/index.ts; disable gateway Verify JWT.
+[ ] Test invalid token -> 401; valid Clerk session token -> 200; wrong azp/origin -> 403.
+[ ] Do not start V13 write operations until all V12 checks pass.

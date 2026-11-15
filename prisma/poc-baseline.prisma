@@ -1,0 +1,12 @@
+// Historical schema baseline matching the first applied POC migration.
+// Keep this file until the V6 migration has been generated and applied everywhere.
+datasource db {
+  provider = "postgresql"
+}
+
+model PocItem {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

@@ -1,0 +1,17 @@
+{
+  "release": "ENES V10",
+  "name": "Owner Website Content Studio",
+  "base": "ENES V9.3 verified source uploaded on 2026-11-15",
+  "databaseMigration": "prisma/migrations/20261115050000_v10_site_content_cms/migration.sql",
+  "migrationType": "additive only; creates SiteContent and SiteContentRevision",
+  "checks": {
+    "staticSourceAssertions": "36/36 passed",
+    "typescriptTsxSyntaxTranspilation": "20 changed source files passed",
+    "fullPrismaValidation": "not run in patch workspace; run npm run v10:verify after installation",
+    "fullTypecheck": "not run in patch workspace; run npm run v10:verify after installation",
+    "cloudflareBuild": "not run after V10 changes; run npm run cf:build after installation"
+  },
+  "noDeployment": true,
+  "noDatabaseMigrationApplied": true,
+  "paymentsEnabled": false
+}

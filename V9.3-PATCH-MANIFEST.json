@@ -1,0 +1,17 @@
+{
+  "name": "ENES Properties V9.3 Administrator Invitation Concurrency Patch",
+  "baseline": "User-uploaded ENES V9.1 source with verified V9.2 patch applied",
+  "files": [
+    "src/app/api/admin/invitations/accept/route.ts",
+    "src/app/api/admin/invitations/[id]/route.ts",
+    "scripts/v9/verify-source.mjs",
+    "docs/ENES-V9.3-security-patch.md"
+  ],
+  "verification": {
+    "source_checks": "30/30 passed in the patch workspace",
+    "prisma_validation": "Not run in the patch workspace",
+    "typescript": "Not run in the patch workspace",
+    "database_migration": false,
+    "cloudflare_deployment": false
+  }
+}
