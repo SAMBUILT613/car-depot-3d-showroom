@@ -33,7 +33,7 @@ check("Prisma pool is reused per warm Node instance", /__enesPgPool/.test(db) &&
 check("Prisma pool has a bounded connection count", /Math\.min\(3, Math\.max\(1, configuredMax\)\)/.test(db));
 check("Prisma pool configures connection and idle timeouts", /connectionTimeoutMillis:\s*10_000/.test(db) && /idleTimeoutMillis:\s*10_000/.test(db));
 check("Environment files are excluded from Git", /^\.env\*$/m.test(ignore) && /^!\.env\.example$/m.test(ignore));
-check("Current Next.js build script remains present", pkg.scripts?.build === "next build");
+check("Current Next.js build script remains present", /^(?:prisma generate && )?next build$/.test(pkg.scripts?.build ?? ""));
 check("Prisma schema and migrations remain present", fs.existsSync(path.join(root, "prisma/schema.prisma")) && fs.existsSync(path.join(root, "prisma/migrations")));
 check("No database migration is introduced by hosting prep", !fs.existsSync(path.join(root, "prisma/migrations/20261115190000_netlify_hosting")));
 

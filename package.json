@@ -5,7 +5,7 @@
   "description": "ENES Properties Marketplace — Nigeria-wide, property-led marketplace",
   "scripts": {
     "dev": "next dev --webpack",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "db:validate": "prisma validate",
