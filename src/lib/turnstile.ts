@@ -1,4 +1,5 @@
 export async function verifyTurnstile(token: string, ip?: string) {
+  if (process.env.TURNSTILE_DISABLED === "true") return true;
   const secretKey = process.env.TURNSTILE_SECRET_KEY;
   if (!secretKey) return process.env.NODE_ENV !== "production";
   if (!token || token.length > 4096) return false;
