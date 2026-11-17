@@ -1,10 +1,11 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function TurnstileWidget({ onVerify }: { onVerify: (token: string) => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const callbackRef = useRef(onVerify);
   const widgetIdRef = useRef<string | null>(null);
+  const [failed, setFailed] = useState(false);
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
   callbackRef.current = onVerify;
 
@@ -16,8 +17,8 @@ export function TurnstileWidget({ onVerify }: { onVerify: (token: string) => voi
       widgetIdRef.current = window.turnstile.render(ref.current, {
         sitekey: siteKey,
         theme: "light",
-        callback: (token) => callbackRef.current(token),
-        "error-callback": () => callbackRef.current(""),
+        callback: (token) => { setFailed(false); callbackRef.current(token); },
+        "error-callback": () => { setFailed(true); callbackRef.current(""); },
         "expired-callback": () => callbackRef.current(""),
       });
     };
@@ -43,5 +44,5 @@ export function TurnstileWidget({ onVerify }: { onVerify: (token: string) => voi
   }, [siteKey]);
 
   if (!siteKey) return <p className="mt-3 text-[12px] text-muted-600">Security verification will be requested when required.</p>;
-  return <div ref={ref} className="mt-4" />;
+  return <div className="mt-4"><div ref={ref} />{failed && <p role="alert" className="mt-2 text-[12px] font-semibold text-[#A33333]">The security check could not connect. Check your internet, turn off ad blockers or private DNS, then refresh and try again.</p>}</div>;
 }

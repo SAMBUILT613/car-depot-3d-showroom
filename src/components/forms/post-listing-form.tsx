@@ -27,9 +27,26 @@ export function PostListingForm() {
   const [uploading, setUploading] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState("");
   const [step, setStep] = useState<1 | 2>(1);
+  const [stepError, setStepError] = useState("");
 
   if (!isLoaded) return null;
   if (!userId) return <div className="flex min-h-full flex-col bg-[#F4F0E8]"><main className="flex flex-1 items-center justify-center p-6"><div className="max-w-md rounded-[18px] border border-[#E5E0D6] bg-[#FFFDF8] p-8 text-center"><span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#E3F0EA] text-[#176B57]"><Store className="h-5 w-5"/></span><h1 className="mt-4 text-[22px] font-extrabold tracking-[-.04em] text-[#18211F]">Sign in to list on ENES</h1><p className="mt-2 text-[12px] leading-6 text-[#6C776F]">Your account keeps your seller identity connected to the listings you submit.</p><Link href="/sign-in" className="enes-button mt-6">Sign in to continue</Link></div></main></div>;
+
+  function continueToPhotos(event: React.MouseEvent<HTMLButtonElement>) {
+    const panel = event.currentTarget.form?.querySelector('[data-step="1"]');
+    const controls = panel?.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>("input,select,textarea");
+    for (const control of Array.from(controls || [])) {
+      if (!control.checkValidity()) {
+        const label = control.closest("label")?.querySelector(".enes-label")?.textContent?.trim() || control.name || "A required field";
+        setStepError(label + ": " + control.validationMessage);
+        control.style.outline = "2px solid #A33333";
+        control.addEventListener("input", () => { control.style.outline = ""; }, { once: true });
+        return;
+      }
+    }
+    setStepError("");
+    setStep(2);
+  }
 
   async function handleFileUpload(event: React.ChangeEvent<HTMLInputElement>) {
     const files = Array.from(event.target.files ?? []);
@@ -67,7 +84,9 @@ export function PostListingForm() {
   }
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault(); setLoading(true); setError("");
+    event.preventDefault(); setError("");
+    if (process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY && !turnstileToken) { setError("The security check has not completed. Wait for the tick, or check your internet / turn off ad blockers, refresh the page and try again."); event.currentTarget.scrollIntoView({ behavior: "smooth", block: "start" }); return; }
+    setLoading(true);
     const formData = new FormData(event.currentTarget);
     const data: Record<string, FormDataEntryValue | string[]> = Object.fromEntries(formData.entries());
     data.category = category; data.mediaIds = uploadedMedia.map((media) => media.id); data.turnstileToken = turnstileToken;
@@ -94,7 +113,8 @@ export function PostListingForm() {
         <div className="mt-5 grid gap-3 sm:grid-cols-2"><label><span className="enes-label">Price (₦)</span><input required name="price" type="number" min="0" max="2000000000" step="1" className="enes-field"/></label><label><span className="enes-label">Price period (if applicable)</span><select name="pricePeriod" className="enes-field"><option value="">One-time / not specified</option><option value="per annum">Per annum</option><option value="per month">Per month</option><option value="per week">Per week</option><option value="per day">Per day</option></select></label></div>
         <label className="mt-4 block"><span className="enes-label">Description</span><textarea required name="description" maxLength={12000} minLength={30} rows={6} className="enes-field !h-auto" placeholder="Include the details a buyer needs to understand the listing. Be specific and accurate."/></label>
         <div className="mt-5 grid gap-3 sm:grid-cols-3"><label><span className="enes-label">State</span><select required name="state" className="enes-field"><option value="">Select state</option>{NIGERIAN_STATES.map((item)=><option key={item}>{item}</option>)}</select></label><label><span className="enes-label">City or town</span><input required maxLength={100} name="city" className="enes-field"/></label><label><span className="enes-label">Area (optional)</span><input maxLength={120} name="area" className="enes-field"/></label></div>
-        <div className="mt-6 flex justify-end"><button type="button" onClick={(event)=>{ const panel=event.currentTarget.form?.querySelector('[data-step="1"]'); const controls=panel?.querySelectorAll<HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement>("input,select,textarea"); for (const control of Array.from(controls||[])) { if (!control.checkValidity()) { control.reportValidity(); return; } } setStep(2); }} className="enes-button">Continue to photos <ArrowUpRightIcon/></button></div>
+        {stepError&&<div role="alert" className="mt-5 rounded-[9px] bg-[#F7E8E0] p-3 text-[12px] font-semibold text-[#A33333]">{stepError}</div>}
+        <div className="mt-6 flex justify-end"><button type="button" onClick={continueToPhotos} className="enes-button">Continue to photos <ArrowUpRightIcon/></button></div>
       </div>
       <div data-step="2" className={step===2 ? "block" : "hidden"}>
         <div className="flex items-start justify-between gap-4"><div><p className="text-[13px] font-extrabold text-[#18211F]">Photos & contact</p><p className="mt-1 text-[11px] leading-5 text-[#758079]">Upload original photos that represent the item or property being listed.</p></div><button type="button" onClick={()=>setStep(1)} className="text-[10px] font-extrabold text-[#176B57]">Edit details</button></div>
