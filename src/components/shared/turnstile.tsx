@@ -43,6 +43,6 @@ export function TurnstileWidget({ onVerify }: { onVerify: (token: string) => voi
     };
   }, [siteKey]);
 
-  if (!siteKey) return <p className="mt-3 text-[12px] text-muted-600">Security verification will be requested when required.</p>;
+  if (!siteKey) return null;
   return <div className="mt-4"><div ref={ref} />{failed && <p role="alert" className="mt-2 text-[12px] font-semibold text-[#A33333]">The security check could not connect. Check your internet, turn off ad blockers or private DNS, then refresh and try again.</p>}</div>;
 }
