@@ -40,7 +40,7 @@ export function ServiceEnquiryForm({ serviceId }: { serviceId: string }) {
     }
   }
 
-  if (done) return <div role="status" className="rounded-[13px] border border-[#B8D4C5] bg-[#E3F0EA] p-5 text-[#176B57]"><CheckCircle2 className="h-5 w-5" /><p className="mt-2 text-[14px] font-extrabold">Enquiry sent</p><p className="mt-1 text-[12px] leading-5">Your message has been sent to the service provider through ENES.</p></div>;
+  if (done) return <div role="status" className="rounded-[13px] border border-[#B8D4C5] bg-[#DDF1E6] p-5 text-[#006B1D]"><CheckCircle2 className="h-5 w-5" /><p className="mt-2 text-[14px] font-extrabold">Enquiry sent</p><p className="mt-1 text-[12px] leading-5">Your message has been sent to the service provider through ENES.</p></div>;
 
   return <form onSubmit={submit} className="space-y-3">
     <div className="grid gap-3 sm:grid-cols-2">
@@ -51,7 +51,7 @@ export function ServiceEnquiryForm({ serviceId }: { serviceId: string }) {
     <label className="block"><span className="enes-label">How can this provider help?</span><textarea name="message" required minLength={15} maxLength={4000} rows={5} className="enes-field !h-auto" placeholder="Share the property or service details the provider needs to understand your request." /></label>
     <TurnstileWidget onVerify={setToken} />
     {error && <p role="alert" className="rounded-[9px] bg-[#FBE9E4] p-3 text-[12px] font-semibold text-[#A33333]">{error}</p>}
-    <Button type="submit" disabled={busy} className="w-full !bg-[#176B57]">{busy ? "Sending enquiry…" : "Send enquiry"} <Send className="ml-1 h-4 w-4" /></Button>
+    <Button type="submit" disabled={busy} className="w-full !bg-[#006B1D]">{busy ? "Sending enquiry…" : "Send enquiry"} <Send className="ml-1 h-4 w-4" /></Button>
     <p className="text-[10px] leading-5 text-[#7B857F]">Your contact details are shared with this provider to respond to this enquiry.</p>
   </form>;
 }

@@ -12,8 +12,8 @@ export const DEFAULT_SITE_CONTENT: SiteContentData = {
     tagline: "Find a place. Find more.",
     logoUrl: "",
     logoLightUrl: "",
-    compactLogoUrl: "",
-    faviconUrl: "",
+    compactLogoUrl: "/brand/enes-badge.png",
+    faviconUrl: "/brand/favicon.png",
     socialImageUrl: "",
   },
   seo: {

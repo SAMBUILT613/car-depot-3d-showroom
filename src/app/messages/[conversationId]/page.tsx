@@ -30,12 +30,12 @@ export default async function MessageThreadPage({ params }: { params: Promise<{ 
   if (!conversation) notFound();
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#F4F0E8]">
+    <div className="flex min-h-screen flex-col bg-[#EAF6F1]">
       <Header />
       <main className="enes-container w-full max-w-3xl flex-1 py-8 sm:py-11">
-        <Link href="/messages" className="inline-flex min-h-10 items-center gap-2 text-[11px] font-extrabold text-[#176B57] hover:text-[#C96745]"><ArrowLeft className="h-4 w-4" /> All messages</Link>
-        <section className="mt-4 overflow-hidden rounded-[15px] border border-[#E5E0D6] bg-[#FFFDF8] p-4 sm:p-6">
-          <div className="flex items-start gap-3 border-b border-[#E5E0D6] pb-4"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-[#E3F0EA] text-[#176B57]"><MessageSquare className="h-4 w-4" /></span><div className="min-w-0"><p className="text-[9px] font-extrabold uppercase tracking-[.13em] text-[#176B57]">Conversation with {conversation.participants[0]?.user.displayName || "ENES member"}</p><h1 className="mt-1 break-words text-[17px] font-extrabold leading-tight text-[#18211F]">{conversation.subject || conversation.listing.title}</h1><p className="mt-1 text-[10px] text-[#78827B]">{conversation.status === "OPEN" ? "Open conversation" : "Closed conversation"}</p></div></div>
+        <Link href="/messages" className="inline-flex min-h-10 items-center gap-2 text-[11px] font-extrabold text-[#006B1D] hover:text-[#A10D10]"><ArrowLeft className="h-4 w-4" /> All messages</Link>
+        <section className="mt-4 overflow-hidden rounded-[15px] border border-[#D5E5DC] bg-[#FFFFFF] p-4 sm:p-6">
+          <div className="flex items-start gap-3 border-b border-[#D5E5DC] pb-4"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-[#DDF1E6] text-[#006B1D]"><MessageSquare className="h-4 w-4" /></span><div className="min-w-0"><p className="text-[9px] font-extrabold uppercase tracking-[.13em] text-[#006B1D]">Conversation with {conversation.participants[0]?.user.displayName || "ENES member"}</p><h1 className="mt-1 break-words text-[17px] font-extrabold leading-tight text-[#04180C]">{conversation.subject || conversation.listing.title}</h1><p className="mt-1 text-[10px] text-[#78827B]">{conversation.status === "OPEN" ? "Open conversation" : "Closed conversation"}</p></div></div>
           <ChatWidget listingId={conversation.listingId} initialConversationId={conversation.id} readOnly={conversation.status !== "OPEN"} />
         </section>
       </main>

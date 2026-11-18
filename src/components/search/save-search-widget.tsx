@@ -22,6 +22,6 @@ export function SaveSearchWidget({ category, state, keyword, maxPrice }: { categ
     finally { setLoading(false); }
   }
 
-  if (saved) return <p role="status" className="mt-4 flex items-center gap-2 text-[11px] font-extrabold text-[#176B57]"><CheckCircle2 className="h-4 w-4"/> Search saved to your ENES account.</p>;
-  return <div className="mt-4"><Button type="button" variant="secondary" onClick={handleSave} disabled={loading} size="sm" className="!w-full !rounded-[9px] !border-[#D6E1D9] !text-[#176B57]"><Bell className="h-4 w-4"/>{loading ? "Saving…" : "Save this search"}</Button>{error&&<p role="alert" className="mt-2 text-[10px] text-[#A33333]">{error}</p>}</div>;
+  if (saved) return <p role="status" className="mt-4 flex items-center gap-2 text-[11px] font-extrabold text-[#006B1D]"><CheckCircle2 className="h-4 w-4"/> Search saved to your ENES account.</p>;
+  return <div className="mt-4"><Button type="button" variant="secondary" onClick={handleSave} disabled={loading} size="sm" className="!w-full !rounded-[9px] !border-[#D6E1D9] !text-[#006B1D]"><Bell className="h-4 w-4"/>{loading ? "Saving…" : "Save this search"}</Button>{error&&<p role="alert" className="mt-2 text-[10px] text-[#A33333]">{error}</p>}</div>;
 }

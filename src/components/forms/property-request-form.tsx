@@ -49,12 +49,12 @@ export function PropertyRequestForm() {
     }
   }
 
-  return <div className="flex min-h-full flex-col bg-[#F4F0E8]"><main className="enes-container flex-1 py-8 sm:py-12">
-    <Link href="/property" className="mb-6 inline-flex items-center gap-2 text-[11px] font-extrabold text-[#176B57]"><ArrowLeft className="h-3.5 w-3.5" /> Property listings</Link>
-    <div className="mx-auto max-w-3xl rounded-[18px] border border-[#E5E0D6] bg-[#FFFDF8] p-5 sm:p-8">
-      <div className="flex items-center gap-3"><span className="flex h-11 w-11 items-center justify-center rounded-[13px] bg-[#E3F0EA] text-[#176B57]"><ClipboardList className="h-5 w-5" /></span><div><p className="enes-kicker">Buyer request</p><h1 className="text-[24px] font-extrabold tracking-[-.045em] text-[#18211F]">Tell us what property you need.</h1></div></div>
+  return <div className="flex min-h-full flex-col bg-[#EAF6F1]"><main className="enes-container flex-1 py-8 sm:py-12">
+    <Link href="/property" className="mb-6 inline-flex items-center gap-2 text-[11px] font-extrabold text-[#006B1D]"><ArrowLeft className="h-3.5 w-3.5" /> Property listings</Link>
+    <div className="mx-auto max-w-3xl rounded-[18px] border border-[#D5E5DC] bg-[#FFFFFF] p-5 sm:p-8">
+      <div className="flex items-center gap-3"><span className="flex h-11 w-11 items-center justify-center rounded-[13px] bg-[#DDF1E6] text-[#006B1D]"><ClipboardList className="h-5 w-5" /></span><div><p className="enes-kicker">Buyer request</p><h1 className="text-[24px] font-extrabold tracking-[-.045em] text-[#04180C]">Tell us what property you need.</h1></div></div>
       <p className="mt-3 max-w-2xl text-[12px] leading-6 text-[#68736D]">Describe your requirements and budget. Your request stays private to your account and authorised ENES administrators; it is not published as a public listing.</p>
-      {!isSignedIn ? <div className="mt-6 rounded-[12px] bg-[#F4F0E8] p-5"><p className="text-[13px] font-extrabold text-[#18211F]">Sign in to submit a property request</p><Link href="/sign-in" className="enes-button mt-4">Sign in to continue</Link></div> : <form onSubmit={submit} className="mt-7 space-y-4">
+      {!isSignedIn ? <div className="mt-6 rounded-[12px] bg-[#EAF6F1] p-5"><p className="text-[13px] font-extrabold text-[#04180C]">Sign in to submit a property request</p><Link href="/sign-in" className="enes-button mt-4">Sign in to continue</Link></div> : <form onSubmit={submit} className="mt-7 space-y-4">
         <div className="grid gap-4 sm:grid-cols-2">
           <label><span className="enes-label">Looking for</span><select name="intent" required className="enes-field"><option value="">Choose a purpose</option>{intents.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>
           <label><span className="enes-label">Property type</span><select name="propertyType" required className="enes-field"><option value="">Choose a type</option>{propertyTypes.map((value) => <option key={value}>{value}</option>)}</select></label>
@@ -67,7 +67,7 @@ export function PropertyRequestForm() {
         </div>
         <label className="block"><span className="enes-label">What else should we know?</span><textarea name="notes" required minLength={20} maxLength={3000} rows={5} className="enes-field !h-auto" placeholder="Share your preferred timing, key requirements and any important details." /></label>
         <TurnstileWidget onVerify={setToken} />
-        {error && <p role="alert" className="rounded-[9px] bg-[#F7E8E0] p-3 text-[12px] font-semibold text-[#A33333]">{error}</p>}
+        {error && <p role="alert" className="rounded-[9px] bg-[#FBE9E9] p-3 text-[12px] font-semibold text-[#A33333]">{error}</p>}
         <Button type="submit" disabled={busy}>{busy ? "Submitting request…" : "Submit private request"}</Button>
       </form>}
     </div>

@@ -1,27 +1,28 @@
+/* ENES-BRAND-APPLIED: deep green #006B1D, bright green #3FBF63, mint #EAF6F1, brand red #A10D10 */
 @import "tailwindcss";
 
 @theme {
-  --color-charcoal-950: #18211F;
-  --color-charcoal-800: #293632;
-  --color-forest-700: #176B57;
-  --color-forest-600: #217A64;
-  --color-forest-100: #E3F0EA;
-  --color-oat-100: #F4F0E8;
-  --color-soft-white: #FFFDF8;
-  --color-terracotta-600: #C96745;
-  --color-terracotta-100: #F7E8E0;
-  --color-line-200: #E5E0D6;
+  --color-charcoal-950: #04180C;
+  --color-charcoal-800: #0F2A18;
+  --color-forest-700: #006B1D;
+  --color-forest-600: #138034;
+  --color-forest-100: #DDF1E6;
+  --color-oat-100: #EAF6F1;
+  --color-soft-white: #FFFFFF;
+  --color-terracotta-600: #A10D10;
+  --color-terracotta-100: #FBE9E9;
+  --color-line-200: #D5E5DC;
   --color-muted-600: #5B6761;
-  --color-success-700: #176B57;
+  --color-success-700: #006B1D;
   --color-warning-700: #87520A;
   --color-danger-700: #A33333;
 
   /* Compatibility aliases for the V6 administration components. */
-  --color-ink-900: #18211F;
-  --color-ink-700: #42514B;
-  --color-coral-600: #C96745;
-  --color-coral-100: #F7E8E0;
-  --color-paper-50: #F4F0E8;
+  --color-ink-900: #04180C;
+  --color-ink-700: #25402F;
+  --color-coral-600: #A10D10;
+  --color-coral-100: #FBE9E9;
+  --color-paper-50: #EAF6F1;
 
   --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Source Serif 4", Georgia, serif;
@@ -41,13 +42,13 @@
 
 :root {
   color-scheme: light;
-  --enes-ink: #18211F;
-  --enes-forest: #176B57;
-  --enes-oat: #F4F0E8;
-  --enes-white: #FFFDF8;
-  --enes-clay: #C96745;
+  --enes-ink: #04180C;
+  --enes-forest: #006B1D;
+  --enes-oat: #EAF6F1;
+  --enes-white: #FFFFFF;
+  --enes-clay: #A10D10;
   --enes-muted: #5B6761;
-  --enes-line: #E5E0D6;
+  --enes-line: #D5E5DC;
 }
 
 @layer base {
@@ -57,7 +58,7 @@
   button, input, select, textarea { font: inherit; }
   button, a { -webkit-tap-highlight-color: transparent; }
   *:focus-visible { outline: 2px solid var(--enes-clay); outline-offset: 3px; }
-  ::selection { background: #D8E8DF; color: var(--enes-ink); }
+  ::selection { background: #CDEBD7; color: var(--enes-ink); }
 }
 
 @layer components {
@@ -70,10 +71,10 @@
   .enes-field:focus { border-color: var(--enes-forest); outline: 2px solid color-mix(in srgb, var(--enes-forest) 18%, transparent); }
   .enes-label { display: block; margin-bottom: 7px; color: var(--enes-ink); font-size: 12px; font-weight: 800; }
   .enes-button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 9px; border-radius: 9px; padding: 0 19px; background: var(--enes-forest); color: white; font-size: 14px; font-weight: 800; transition: background .18s ease, transform .18s ease; }
-  .enes-button:hover { background: #105744; transform: translateY(-1px); }
+  .enes-button:hover { background: #004D15; transform: translateY(-1px); }
   .enes-button-clay { background: var(--enes-clay); }
-  .enes-button-clay:hover { background: #B55738; }
-  .enes-button-outline { border: 1px solid rgba(24,33,31,.18); background: transparent; color: var(--enes-ink); }
+  .enes-button-clay:hover { background: #7E0A0C; }
+  .enes-button-outline { border: 1px solid rgba(4,24,12,.18); background: transparent; color: var(--enes-ink); }
   .enes-button-outline:hover { border-color: var(--enes-forest); background: var(--enes-forest-100); }
   .enes-panel { border: 1px solid var(--enes-line); border-radius: 15px; background: var(--enes-white); }
   .enes-link { color: var(--enes-forest); font-weight: 800; text-decoration: none; }

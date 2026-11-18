@@ -92,7 +92,7 @@ export function ChatWidget({ listingId, initialConversationId, readOnly = false 
         <div ref={bottomRef} />
       </div>
       {error && <p role="alert" className="mt-2 text-[12px] text-danger-700">{error}</p>}
-      {readOnly ? <p className="mt-3 rounded-[8px] bg-[#F4F0E8] p-3 text-[11px] text-[#69756E]">This conversation is closed. You can still review its previous messages.</p> : <form onSubmit={sendMessage} className="mt-2 flex gap-2">
+      {readOnly ? <p className="mt-3 rounded-[8px] bg-[#EAF6F1] p-3 text-[11px] text-[#69756E]">This conversation is closed. You can still review its previous messages.</p> : <form onSubmit={sendMessage} className="mt-2 flex gap-2">
         <input value={input} onChange={(event) => setInput(event.target.value)} maxLength={2000} placeholder="Type a message..." aria-label="Message to seller" className="min-w-0 flex-1 rounded-control border border-line-200 p-2 text-[13px]" />
         <Button type="submit" size="sm" disabled={sending || !input.trim()}><Send className="h-4 w-4" /> Send</Button>
       </form>}

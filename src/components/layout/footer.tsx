@@ -6,11 +6,11 @@ export async function Footer() {
   const content = await getPublishedSiteContent();
   const brand = content.brand;
   return (
-    <footer className="mt-auto bg-[#18211F] text-[#FFFDF8]">
+    <footer className="mt-auto bg-[#04180C] text-[#FFFFFF]">
       <div className="enes-container grid gap-10 py-12 md:grid-cols-[1.25fr_2.75fr] md:py-14">
         <div className="max-w-sm">
           <Link href="/" className="inline-flex min-h-10 items-center gap-2.5">
-            {(brand.logoLightUrl || brand.logoUrl) ? <img src={brand.logoLightUrl || brand.logoUrl} alt={`${brand.name} logo`} className={`max-h-10 max-w-[160px] object-contain object-left ${brand.logoLightUrl ? "" : "brightness-0 invert"}`} /> : <><span className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-[11px] bg-[#F4F0E8] text-[15px] font-extrabold tracking-[-.08em] text-[#18211F]">{brand.compactLogoUrl ? <img src={brand.compactLogoUrl} alt="" className="h-full w-full object-contain" /> : "E."}</span><span className="text-[18px] font-extrabold tracking-[-.055em]">{brand.name}</span></>}
+            {(brand.logoLightUrl || brand.logoUrl) ? <img src={brand.logoLightUrl || brand.logoUrl} alt={`${brand.name} logo`} className={`max-h-10 max-w-[160px] object-contain object-left ${brand.logoLightUrl ? "" : "brightness-0 invert"}`} /> : <><span className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-[11px] bg-[#EAF6F1] text-[15px] font-extrabold tracking-[-.08em] text-[#04180C]">{brand.compactLogoUrl ? <img src={brand.compactLogoUrl} alt="" className="h-full w-full object-contain" /> : "E."}</span><span className="text-[18px] font-extrabold tracking-[-.055em]">{brand.name}</span></>}
           </Link>
           <p className="mt-4 text-[21px] font-extrabold leading-[1.12] tracking-[-.04em]">{brand.tagline}</p>
           <p className="mt-3 max-w-xs text-[12px] leading-6 text-white/60">{content.footer.description}</p>
