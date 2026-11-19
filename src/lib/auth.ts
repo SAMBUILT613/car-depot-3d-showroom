@@ -73,6 +73,28 @@ export async function ensureCurrentUser() {
     },
   });
   if (user.status !== "ACTIVE") throw new AuthorizationError("This ENES account is not active. Contact support for assistance.");
+  // Email the owner once when a brand-new account first signs in (deduplicated by a unique key).
+  if (Date.now() - user.createdAt.getTime() < 2 * 60 * 1000) {
+    try {
+      const first = await prisma.securityEvent.createMany({
+        data: [{ userId: user.id, dedupeKey: `user-registered:${user.id}`, eventType: "USER_REGISTERED", severity: "INFO", metadata: { source: "ensureCurrentUser" } }],
+        skipDuplicates: true,
+      });
+      if (first.count === 1) {
+        const { sendNotificationEmail } = await import("@/lib/email");
+        const result = await sendNotificationEmail({
+          email: "emmanuelagada139@gmail.com",
+          subject: "New ENES account created",
+          title: "New ENES account created",
+          body: `${displayName}${email ? ` (${email})` : ""} just created an account.`,
+          href: "/admin/users",
+        });
+        if (!result.sent) console.error("New account email not sent", result.reason);
+      }
+    } catch (error) {
+      console.error("New account alert failed", error instanceof Error ? error.name : "UnknownError");
+    }
+  }
   return user;
 }
 
