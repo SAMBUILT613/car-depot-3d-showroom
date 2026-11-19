@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MapPin, Image as ImageIcon, ArrowUpRight, BedDouble, Bath, CarFront, BadgeCheck } from "lucide-react";
+import { MapPin, Image as ImageIcon, Camera, ArrowUpRight, BedDouble, Bath, CarFront, BadgeCheck } from "lucide-react";
 import { SaveListingButton } from "@/components/listings/save-listing-button";
 
 export type ListingCardProps = {
@@ -9,6 +9,7 @@ export type ListingCardProps = {
   location: string;
   imageUrl?: string | null;
   imageAlt?: string | null;
+  photoCount?: number | null;
   category?: string;
   subCategory?: string | null;
   intent?: string | null;
@@ -37,7 +38,7 @@ function intentLabel(intent?: string | null) {
 }
 
 export function ListingCard(props: ListingCardProps) {
-  const { id, title, price, location, imageUrl, imageAlt, category, subCategory, intent, condition, propertyType, bedrooms, bathrooms, parkingSpaces, make, model, vehicleYear, isFeatured, showSave = true, initiallySaved = false, reviewLabel = "ENES reviewed", featuredLabel = "Featured", photoMissingLabel = "Photo not provided" } = props;
+  const { id, title, price, location, imageUrl, imageAlt, photoCount, category, subCategory, intent, condition, propertyType, bedrooms, bathrooms, parkingSpaces, make, model, vehicleYear, isFeatured, showSave = true, initiallySaved = false, reviewLabel = "ENES reviewed", featuredLabel = "Featured", photoMissingLabel = "Photo not provided" } = props;
   const detail = category === "Property"
     ? [bedrooms ? `${bedrooms} bed${bedrooms === 1 ? "" : "s"}` : null, bathrooms ? `${bathrooms} bath${bathrooms === 1 ? "" : "s"}` : null, parkingSpaces ? `${parkingSpaces} parking` : null, !bedrooms && !bathrooms && !parkingSpaces ? propertyType : null].filter(Boolean).join(" · ")
     : category === "Cars"
@@ -52,6 +53,7 @@ export function ListingCard(props: ListingCardProps) {
         <span className="absolute left-2.5 top-2.5 max-w-[75%] truncate rounded-full bg-[#FFFFFF]/95 px-2.5 py-1 text-[9px] font-extrabold uppercase tracking-[.06em] text-[#0F2A18] sm:left-3 sm:top-3">{tag || "Listing"}</span>
         {isFeatured && <span className="absolute right-2.5 top-2.5 rounded-full bg-[#A10D10] px-2.5 py-1 text-[8px] font-extrabold uppercase tracking-[.06em] text-white sm:right-3 sm:top-3">{featuredLabel}</span>}
         <span className="absolute bottom-2.5 left-2.5 inline-flex items-center gap-1 rounded-full bg-[#006B1D]/95 px-2.5 py-1 text-[8px] font-extrabold text-white"><BadgeCheck className="h-3 w-3" /> {reviewLabel}</span>
+        {photoCount && photoCount > 1 ? <span className="absolute bottom-2.5 right-2.5 inline-flex items-center gap-1 rounded-full bg-black/65 px-2 py-1 text-[9px] font-bold text-white" aria-label={photoCount + " photos"}><Camera className="h-3 w-3" aria-hidden="true" /> {photoCount}</span> : null}
       </Link>
       <div className="flex min-h-[154px] flex-1 flex-col p-3 sm:min-h-[166px] sm:p-4">
         <Link href={`/listing/${encodeURIComponent(id)}`} className="block min-w-0 rounded-sm focus-visible:outline-offset-4">

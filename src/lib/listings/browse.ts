@@ -111,6 +111,7 @@ export async function browseListings(params: BrowseParams, category?: ListingCat
           take: 1,
           select: { publicUrl: true, altText: true },
         },
+        _count: { select: { media: { where: mediaWhere } } },
       },
     }),
     prisma.listing.count({ where }),
