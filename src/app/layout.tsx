@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
+import Script from "next/script";
 import { ClerkProvider } from "@clerk/nextjs";
 import { getPublishedSiteContent } from "@/lib/site-content";
 import { SiteChrome } from "@/components/navigation/site-chrome";
@@ -32,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <ClerkProvider>
       <html lang="en" className={manrope.variable}>
-        <body className={`${manrope.className} min-h-screen flex flex-col`}><SiteChrome>{children}</SiteChrome><SiteVisitTracker /></body>
+        <body className={`${manrope.className} min-h-screen flex flex-col`}><SiteChrome>{children}</SiteChrome><SiteVisitTracker /><Script id="tawk-to" strategy="afterInteractive">{`var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();(function(){var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];s1.async=true;s1.src="https://embed.tawk.to/6b0181114f656f3cd9b25771/default";s1.charset="UTF-8";s1.setAttribute("crossorigin","*");s0.parentNode.insertBefore(s1,s0);})();`}</Script></body>
       </html>
     </ClerkProvider>
   );
