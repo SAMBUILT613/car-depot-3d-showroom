@@ -20,6 +20,8 @@ const navigation: { href: string; label: string; permission: string; Icon: Lucid
   { href: "/admin/messages", label: "Messages", permission: "messages:view", Icon: MessageSquare },
   { href: "/admin/inquiries", label: "Inquiries", permission: "enquiries:view", Icon: MessageSquare },
   { href: "/admin/reports", label: "Reports", permission: "reports:view", Icon: Flag },
+  { href: "/admin/support", label: "Support", permission: "enquiries:view", Icon: MessageSquare },
+  { href: "/admin/visitors", label: "Visitors", permission: "analytics:view", Icon: BarChart3 },
   { href: "/admin/analytics", label: "Analytics", permission: "analytics:view", Icon: BarChart3 },
   { href: "/admin/team", label: "Administrator team", permission: "admins:view", Icon: ShieldCheck },
   { href: "/admin/audit", label: "Audit history", permission: "audit:view", Icon: ScrollText },

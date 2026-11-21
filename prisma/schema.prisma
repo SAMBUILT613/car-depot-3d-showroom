@@ -766,3 +766,44 @@ model SiteContentRevision {
   @@unique([siteContentKey, version])
   @@index([siteContentKey, createdAt])
 }
+
+model SupportThread {
+  id            String           @id @default(cuid())
+  userId        String
+  subject       String
+  status        String           @default("OPEN")
+  lastMessageAt DateTime         @default(now())
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  messages      SupportMessage[]
+
+  @@index([userId, lastMessageAt])
+  @@index([status, lastMessageAt])
+}
+
+model SupportMessage {
+  id           String        @id @default(cuid())
+  threadId     String
+  fromStaff    Boolean       @default(false)
+  senderUserId String?
+  senderName   String
+  content      String
+  createdAt    DateTime      @default(now())
+  thread       SupportThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+
+  @@index([threadId, createdAt])
+}
+
+model SiteVisit {
+  id           String   @id @default(cuid())
+  visitorKey   String
+  path         String
+  referrer     String?
+  country      String?
+  device       String?
+  isNewVisitor Boolean  @default(false)
+  createdAt    DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([visitorKey, createdAt])
+}

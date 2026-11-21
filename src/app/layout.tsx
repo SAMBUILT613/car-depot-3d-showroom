@@ -3,6 +3,7 @@ import { Manrope } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { getPublishedSiteContent } from "@/lib/site-content";
 import { SiteChrome } from "@/components/navigation/site-chrome";
+import { SiteVisitTracker } from "@/components/analytics/site-visit-tracker";
 import "./globals.css";
 
 const manrope = Manrope({ subsets: ["latin"], display: "swap", variable: "--font-manrope" });
@@ -31,7 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <ClerkProvider>
       <html lang="en" className={manrope.variable}>
-        <body className={`${manrope.className} min-h-screen flex flex-col`}><SiteChrome>{children}</SiteChrome></body>
+        <body className={`${manrope.className} min-h-screen flex flex-col`}><SiteChrome>{children}</SiteChrome><SiteVisitTracker /></body>
       </html>
     </ClerkProvider>
   );
