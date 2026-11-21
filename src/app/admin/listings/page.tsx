@@ -62,6 +62,7 @@ export default async function AdminListingsPage() {
                   <td className="p-4 text-muted-600">{item.media.filter((media) => media.status === "APPROVED").length} approved / {item.media.length} uploaded</td>
                   <td className="p-4 text-muted-600">{item.createdAt.toLocaleDateString()}</td>
                   <td className="p-4">
+                    <Link href={`/admin/listings/${item.id}/edit`} className="mb-2 block text-[12px] font-bold text-forest-700 underline">Edit listing</Link>
                     {(["PENDING_REVIEW", "CHANGES_REQUESTED"].includes(item.status)) ? (
                       <div className="flex flex-col gap-2">
                         <form action={moderate}><input type="hidden" name="id" value={item.id} /><input type="hidden" name="action" value="APPROVE" /><Button type="submit" size="sm">Approve</Button></form>
