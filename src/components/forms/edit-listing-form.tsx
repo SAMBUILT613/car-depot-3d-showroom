@@ -134,7 +134,7 @@ export function EditListingForm({ listing, photos: initialPhotos, mode, endpoint
       {isLive && <p className="mb-5 rounded-[9px] bg-[#DDF1E6] p-3 text-[12px] font-semibold text-[#004D15]">This listing is live. Changes you save appear on the site immediately, and ENES keeps a record of every change.</p>}
 
       <p className="text-[13px] font-extrabold text-[#04180C]">Photos <span className="font-semibold text-[#5B6761]">({photos.length}/10)</span></p>
-      <p className="mt-1 text-[11px] text-[#5B6761]">The first photo is the cover. Use the arrows to reorder.{isLive ? " New photos go live when you save." : " New photos are checked by ENES before they show."}</p>
+      <p className="mt-1 text-[11px] text-[#5B6761]">The first photo is the cover. Use the arrows to reorder.{isLive || mode === "admin" ? " New photos go live when you save." : " New photos are checked by ENES before they show."}</p>
       <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
         {photos.map((photo, index) => (
           <div key={photo.id} className="overflow-hidden rounded-[12px] border border-[#D5E5DC] bg-[#EAF6F1]">
@@ -195,7 +195,7 @@ export function EditListingForm({ listing, photos: initialPhotos, mode, endpoint
       </div>
 
       <div className="mt-5 rounded-[12px] bg-[#EAF6F1] p-4">
-        <p className="text-[11px] font-extrabold text-[#04180C]">{mode === "admin" ? "Seller details shown on the listing" : "Public contact"}</p>
+        <p className="text-[11px] font-extrabold text-[#04180C]">{mode === "admin" ? "Seller details shown on the listing" : "Private contact (only ENES sees this)"}</p>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           {mode === "admin" && <label><span className="enes-label">Seller name</span><input maxLength={120} value={values.sellerName} onChange={(event) => set("sellerName", event.target.value)} className="enes-field" /></label>}
           <label><span className="enes-label">WhatsApp / phone number</span><input maxLength={30} value={values.sellerPhone} onChange={(event) => set("sellerPhone", event.target.value)} className="enes-field" placeholder="e.g. 08012345678" /></label>

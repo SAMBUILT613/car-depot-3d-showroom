@@ -5,6 +5,7 @@ import { deleteR2Object, getR2Client } from "@/lib/media/storage";
 import { createNotification, notifyActiveAdministrators } from "@/lib/notifications";
 import { NIGERIAN_STATES } from "@/lib/nigeria";
 import { validNairaAmount, validText } from "@/lib/security/http";
+import { CONTACT_DETAILS_MESSAGE, findContactDetails } from "@/lib/listings/contact-guard";
 
 type Body = Record<string, unknown>;
 type Scalar = string | number | boolean | null;
@@ -61,6 +62,7 @@ export function parseListingFields(
   if (!validText(body.title, 120) || !validText(body.description, 12000) || String(body.description).trim().length < 30) {
     return bad("Provide a clear title and a description of at least 30 characters.");
   }
+  if (!options.admin && findContactDetails(body.title, body.description)) return bad(CONTACT_DETAILS_MESSAGE);
   const rawPrice = typeof body.price === "string" && body.price.trim() ? Number(body.price) : body.price;
   if (!validNairaAmount(rawPrice)) return bad("Enter a valid price in naira.");
   const category = options.fixedCategory ?? body.category;
@@ -185,7 +187,7 @@ export async function applyListingEdit(input: {
     const keptAfter = order.filter((id) => existingIds.has(id));
     reordered = keptBefore.join(",") !== keptAfter.join(",");
 
-    if (listing.status === "PUBLISHED" && added.length) {
+    if ((listing.status === "PUBLISHED" || kind === "admin") && added.length) {
       const privateBucket = process.env.R2_BUCKET_NAME?.trim();
       const publicBucket = process.env.R2_PUBLIC_BUCKET_NAME?.trim();
       const publicBase = process.env.R2_PUBLIC_URL?.replace(/\/$/, "");

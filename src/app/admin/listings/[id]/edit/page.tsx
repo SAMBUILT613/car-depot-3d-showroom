@@ -4,6 +4,7 @@ import { prisma } from "@/lib/db";
 import { requireAdminPage } from "@/lib/auth";
 import { Badge } from "@/components/ui/badge";
 import { EditListingForm, type EditableListing } from "@/components/forms/edit-listing-form";
+import { ListingStatusActions } from "@/components/admin/listing-status-actions";
 
 export const dynamic = "force-dynamic";
 
@@ -19,7 +20,7 @@ const show = (value: unknown) => {
 };
 
 export default async function AdminEditListingPage({ params }: { params: Promise<{ id: string }> }) {
-  await requireAdminPage("listings:edit");
+  const actor = await requireAdminPage("listings:edit");
   const { id } = await params;
   const listing = await prisma.listing.findUnique({
     where: { id },
@@ -43,6 +44,7 @@ export default async function AdminEditListingPage({ params }: { params: Promise
         </div>
       </div>
 
+      <ListingStatusActions listingId={listing.id} status={listing.status} can={{ approve: actor.permissions.has("listings:approve"), reject: actor.permissions.has("listings:reject"), requestChanges: actor.permissions.has("listings:request_changes"), archive: actor.permissions.has("listings:archive") }} />
       <EditListingForm listing={listing as unknown as EditableListing} photos={photos} mode="admin" endpoint={`/api/admin/listings/${listing.id}`} backHref="/admin/listings" viewHref={`/listing/${listing.id}`} />
 
       <section className="mt-8">
