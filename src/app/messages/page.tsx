@@ -32,7 +32,7 @@ export default async function MessagesPage() {
     const other = conversation.participants.find((participant) => participant.userId !== user.id)?.user;
     const latest = conversation.messages[0];
     const unread = Boolean(latest && latest.senderId !== user.clerkId && (!ownMembership?.lastReadAt || latest.createdAt > ownMembership.lastReadAt));
-    return { conversation, otherName: other?.displayName || "ENES member", latest, unread };
+    return { conversation, otherName: "ENES Properties", latest, unread };
   });
 
   return (

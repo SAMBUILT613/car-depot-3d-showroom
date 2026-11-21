@@ -18,6 +18,7 @@ const navigation: { href: string; label: string; permission: string; Icon: Lucid
   { href: "/admin/media", label: "Media review", permission: "media:view", Icon: Image },
   { href: "/admin/users", label: "Users", permission: "users:view", Icon: Users },
   { href: "/admin/messages", label: "Messages", permission: "messages:view", Icon: MessageSquare },
+  { href: "/admin/inquiries", label: "Inquiries", permission: "enquiries:view", Icon: MessageSquare },
   { href: "/admin/reports", label: "Reports", permission: "reports:view", Icon: Flag },
   { href: "/admin/analytics", label: "Analytics", permission: "analytics:view", Icon: BarChart3 },
   { href: "/admin/team", label: "Administrator team", permission: "admins:view", Icon: ShieldCheck },

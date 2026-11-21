@@ -76,13 +76,13 @@ export function ChatWidget({ listingId, initialConversationId, readOnly = false 
   };
 
   if (!isLoaded) return null;
-  if (!isSignedIn) return <p className="mt-4 text-center text-[12px] text-muted-600">Sign in to start a private conversation with the seller.</p>;
+  if (!isSignedIn) return <p className="mt-4 text-center text-[12px] text-muted-600">Sign in to send an inquiry to ENES. Our team will reply here.</p>;
 
   return (
     <div id="message-thread" className="mt-6 border-t border-line-200 pt-4">
-      <h4 className="mb-2 text-[14px] font-semibold text-ink-900">Message Seller</h4>
+      <h4 className="mb-2 text-[14px] font-semibold text-ink-900">Ask ENES about this listing</h4>
       <div className="flex h-48 flex-col gap-2 overflow-y-auto rounded-[8px] border border-line-200 bg-paper-50 p-2">
-        {messages.length === 0 && <p className="m-auto text-center text-[12px] text-muted-600">Start a private enquiry about this listing.</p>}
+        {messages.length === 0 && <p className="m-auto text-center text-[12px] text-muted-600">Send your question or offer. ENES reviews every inquiry and replies here.</p>}
         {messages.map((message) => (
           <div key={message.id} className={`max-w-[80%] rounded-[8px] p-2 text-[13px] ${message.senderId === userId ? "self-end bg-coral-600 text-white" : "self-start border border-line-200 bg-white text-ink-900"}`}>
             <p className="whitespace-pre-wrap break-words">{message.content}</p>
@@ -93,7 +93,7 @@ export function ChatWidget({ listingId, initialConversationId, readOnly = false 
       </div>
       {error && <p role="alert" className="mt-2 text-[12px] text-danger-700">{error}</p>}
       {readOnly ? <p className="mt-3 rounded-[8px] bg-[#EAF6F1] p-3 text-[11px] text-[#69756E]">This conversation is closed. You can still review its previous messages.</p> : <form onSubmit={sendMessage} className="mt-2 flex gap-2">
-        <input value={input} onChange={(event) => setInput(event.target.value)} maxLength={2000} placeholder="Type a message..." aria-label="Message to seller" className="min-w-0 flex-1 rounded-control border border-line-200 p-2 text-[13px]" />
+        <input value={input} onChange={(event) => setInput(event.target.value)} maxLength={2000} placeholder="Type a message..." aria-label="Message to ENES" className="min-w-0 flex-1 rounded-control border border-line-200 p-2 text-[13px]" />
         <Button type="submit" size="sm" disabled={sending || !input.trim()}><Send className="h-4 w-4" /> Send</Button>
       </form>}
     </div>

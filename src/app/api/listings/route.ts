@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { CONTACT_DETAILS_MESSAGE, findContactDetails } from "@/lib/listings/contact-guard";
 import { ensureCurrentUser, isAuthFailure } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { safeConsumeRateLimit } from "@/lib/security/rate-limit";
@@ -60,8 +61,7 @@ export async function POST(request: NextRequest) {
     if (!body || typeof body !== "object" || Array.isArray(body)) return NextResponse.json({ ok: false, error: "Invalid listing details." }, { status: 400 });
     const ip = request.headers.get("cf-connecting-ip") || undefined;
     if (!(await verifyTurnstile(typeof body.turnstileToken === "string" ? body.turnstileToken : "", ip))) return NextResponse.json({ ok: false, error: "Please complete the security check and try again." }, { status: 403 });
-    if (!validText(body.title, 120) || !validText(body.description, 12000) || String(body.description).trim().length < 30) return NextResponse.json({ ok: false, error: "Provide a clear title and description of at least 30 characters." }, { status: 400 });
-    const price = typeof body.price === "string" && body.price.trim() ? Number(body.price) : body.price;
+$1    const price = typeof body.price === "string" && body.price.trim() ? Number(body.price) : body.price;
     if (!validNairaAmount(price)) return NextResponse.json({ ok: false, error: "Enter a valid price in naira." }, { status: 400 });
     if (typeof body.category !== "string" || !ALLOWED_CATEGORIES.has(body.category)) return NextResponse.json({ ok: false, error: "Choose a supported listing category." }, { status: 400 });
     if (!validText(body.state, 80) || !NIGERIAN_STATES.includes(body.state.trim()) || !validText(body.city, 100)) return NextResponse.json({ ok: false, error: "Choose a valid Nigerian state and enter a city or town." }, { status: 400 });

@@ -5,8 +5,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { MapPin, Calendar, Image as ImageIcon, ArrowLeft, BedDouble, Bath, CarFront, Ruler, Package, Tag } from "lucide-react";
 import { ListingGallery } from "@/components/listings/listing-gallery";
-import { generateWhatsAppLink } from "@/lib/whatsapp";
-import { ViewTracker, WhatsAppButton } from "@/components/analytics/tracker";
+import { ViewTracker } from "@/components/analytics/tracker";
 import { ChatWidget } from "@/components/chat/chat-widget";
 import { LocationMap } from "@/components/maps/location-map";
 import { ReportWidget } from "@/components/shared/report-widget";
@@ -20,7 +19,6 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
   const listing = await prisma.listing.findFirst({ where: { OR: [{ id }, { slug: id }], status: "PUBLISHED" }, include: { media: { where: { status: "APPROVED", deletedAt: null, publicUrl: { not: null }, ...(publicBucket ? { bucketName: publicBucket } : {}) }, orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }], select: { id: true, publicUrl: true, altText: true } } } });
   if (!listing) notFound();
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "";
-  const whatsappUrl = generateWhatsAppLink(listing.sellerPhone, listing.title, listing.id, baseUrl);
   const specs = listing.category === "Property"
     ? [{ label: "Purpose", value: listing.intent?.replaceAll("_", " ").toLowerCase() }, { label: "Property type", value: listing.propertyType }, { label: "Bedrooms", value: listing.bedrooms?.toString() }, { label: "Bathrooms", value: listing.bathrooms?.toString() }, { label: "Land size", value: listing.landSize }, { label: "Furnishing", value: listing.furnishing }]
     : listing.category === "Cars"
@@ -35,5 +33,5 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
     <div className="mt-6"><h2 className="text-[14px] font-extrabold text-[#04180C]">Description</h2><p className="mt-3 whitespace-pre-wrap text-[12px] leading-7 text-[#5F6B64]">{listing.description}</p></div>
     {listing.latitude!==null&&listing.longitude!==null&&<div className="mt-7 border-t border-[#D5E5DC] pt-6"><h2 className="mb-3 text-[13px] font-extrabold text-[#04180C]">Approximate area</h2><LocationMap lat={listing.latitude} lng={listing.longitude}/><p className="mt-2 text-[9px] text-[#879189]">The map shows an approximate location, not a private street address.</p></div>}
     <div className="mt-7 flex items-center gap-2 border-t border-[#D5E5DC] pt-5 text-[10px] text-[#79837D]"><Calendar className="h-3.5 w-3.5"/> Published {listing.publishedAt?.toLocaleDateString("en-NG",{day:"numeric",month:"long",year:"numeric"})||listing.createdAt.toLocaleDateString("en-NG")}</div></article>
-  </div><aside className="h-fit rounded-[16px] border border-[#D5E5DC] bg-[#FFFFFF] p-5 sm:p-6 lg:sticky lg:top-[125px]"><p className="text-[9px] font-extrabold uppercase tracking-[.14em] text-[#006B1D]">Seller contact</p><h2 className="mt-2 text-[19px] font-extrabold tracking-[-.035em] text-[#04180C]">Ask about this listing.</h2><p className="mt-2 text-[11px] leading-5 text-[#6B766F]">Listed by {listing.sellerName}. Contact them to discuss availability, details and next steps.</p>{whatsappUrl?<div className="mt-5"><WhatsAppButton listingId={listing.id} href={whatsappUrl}/></div>:<p className="mt-4 rounded-[9px] bg-[#FBE9E9] p-3 text-[10px] text-[#A33333]">Seller contact is temporarily unavailable.</p>}<div className="mt-3"><SaveListingButton listingId={listing.id}/></div><ChatWidget listingId={listing.id}/><div className="mt-5 border-t border-[#D5E5DC] pt-4"><ReportWidget listingId={listing.id}/></div><div className="mt-4 rounded-[10px] bg-[#EAF6F1] p-3"><p className="text-[9px] leading-5 text-[#6F7A72]">Never send money before you have independently checked the property, vehicle or item and confirmed the seller's details.</p></div></aside></div></main><Footer/></div>;
+  </div><aside className="h-fit rounded-[16px] border border-[#D5E5DC] bg-[#FFFFFF] p-5 sm:p-6 lg:sticky lg:top-[125px]"><p className="text-[9px] font-extrabold uppercase tracking-[.14em] text-[#006B1D]">ENES inquiries</p><h2 className="mt-2 text-[19px] font-extrabold tracking-[-.035em] text-[#04180C]">Ask about this listing.</h2><p className="mt-2 text-[11px] leading-5 text-[#6B766F]">ENES handles every inquiry for this listing. Send a message and our team will review it and reply to you here.</p><div className="mt-3"><SaveListingButton listingId={listing.id}/></div><ChatWidget listingId={listing.id}/><div className="mt-5 border-t border-[#D5E5DC] pt-4"><ReportWidget listingId={listing.id}/></div><div className="mt-4 rounded-[10px] bg-[#EAF6F1] p-3"><p className="text-[9px] leading-5 text-[#6F7A72]">Never send money before you have independently checked the property, vehicle or item and confirmed the seller's details.</p></div></aside></div></main><Footer/></div>;
 }
