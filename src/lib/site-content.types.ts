@@ -92,6 +92,7 @@ export type SiteContentData = {
   footer: { description: string; copyrightText: string; bottomNote: string; columns: { title: string; links: SiteLink[] }[] };
   pages: {
     about: SitePage;
+    blog: SitePage;
     contact: SitePage;
     propertyManagement: SitePage;
     safety: SitePage;

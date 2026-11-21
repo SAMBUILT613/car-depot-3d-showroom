@@ -81,6 +81,9 @@ const fieldGroups: { title: string; description: string; fields: Field[] }[] = [
   { title: "About page", description: "The public About page content.", fields: [
     { path: "pages.about.eyebrow", label: "Eyebrow" }, { path: "pages.about.title", label: "Heading" }, { path: "pages.about.description", label: "Introduction", multiline: true },
   ] },
+  { title: "Blog page", description: "The public Blog page: the company story and aims.", fields: [
+    { path: "pages.blog.eyebrow", label: "Eyebrow" }, { path: "pages.blog.title", label: "Heading" }, { path: "pages.blog.description", label: "Introduction", multiline: true },
+  ] },
   { title: "Contact page", description: "The public contact page content. Do not add unverified contact details.", fields: [
     { path: "pages.contact.eyebrow", label: "Eyebrow" }, { path: "pages.contact.title", label: "Heading" }, { path: "pages.contact.description", label: "Introduction", multiline: true },
   ] },
@@ -101,6 +104,7 @@ const jsonFields = [
   { path: "categories", label: "Homepage category cards and their links" },
   { path: "footer.columns", label: "Footer columns and links" },
   { path: "pages.about.sections", label: "About page content blocks" },
+  { path: "pages.blog.sections", label: "Blog page content blocks" },
   { path: "pages.contact.sections", label: "Contact page content blocks" },
   { path: "pages.propertyManagement.sections", label: "Property services content blocks" },
   { path: "pages.safety.sections", label: "Owner-approved safety page sections" },
